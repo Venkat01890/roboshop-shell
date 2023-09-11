@@ -29,7 +29,7 @@ VALIDATE(){
 
 yum install maven -y &>>$LOGFILE
 
-VALIDATE $? "Installing Maven'
+VALIDATE $? "Installing Maven"
 
 useradd roboshop &>>$LOGFILE
 
