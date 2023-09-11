@@ -31,9 +31,26 @@ yum install python36 gcc python3-devel -y &>>$LOGFILE
 
 VALIDATE $? "Installing Python"
 
-useradd roboshop &>>$LOGFILE
+USER_ROBOSHOP=$(id roboshop)
+if [ $? -ne 0 ];
+then 
+    echo -e "$Y...USER roboshop is not present so creating one now..$N"
+    useradd roboshop &>>$LOGFILE
+else 
+    echo -e "$G...USER roboshop is already present so  skipping now.$N"
+ fi
 
-mkdir /app &>>$LOGFILE
+#write a condition to check directory already exist or not
+VALIDATE_APP_DIR=$(cd /app)
+#write a condition to check directory already exist or not
+if [ $? -ne 0 ];
+then 
+    echo -e " $Y /app directory not there so creating one $N"
+    mkdir /app &>>$LOGFILE   
+else
+    echo -e "$G /app directory already present so skipping ....$N" 
+    fi
+
 
 curl -L -o /tmp/payment.zip https://roboshop-builds.s3.amazonaws.com/payment.zip &>>$LOGFILE
 
