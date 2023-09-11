@@ -41,11 +41,11 @@ VALIDATE $? "Downloading shipping artifact"
 
 cd /app &>>$LOGFILE
 
-VALIDATE $? "Unzipping shipping"
+VALIDATE $? "Moving to the app directory"
 
 unzip /tmp/shipping.zip &>>$LOGFILE
 
-VALIDATE $? "Moving to app directory"
+VALIDATE $? "Unzipping shipping"
 
 mvn clean package &>>$LOGFILE
 
