@@ -5,6 +5,7 @@ INSTANCE_TYPE=""
 IMAGE_ID=ami-03265a0778a880afb
 SECURITY_GROUP_ID=sg-01748e1a5257a1e58
 DOMAIN_NAME=practicedevops.shop
+HOSTED_ZONE_ID=Z00660781P8LGHBU61OVV
 
 for i in $@
 do
@@ -14,7 +15,7 @@ do
     IP_ADDRESS=$(aws ec2 run-instances --image-id $IMAGE_ID  --instance-type $INSTANCE_TYPE --security-group-ids $SECURITY_GROUP_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]" | jq -r '.Instances[0].PrivateIpAddress')
     echo "Created $i instance : $IP_ADDRESS"
 
-    aws route53 change-resource-record-sets --hosted-zone-id Z00660781P8LGHBU61OVV --change-batch '
+    aws route53 change-resource-record-sets --hosted-zone-id $HOSTED_ZONE_ID --change-batch '
     {
             "Changes": [{
             "Action": "CREATE",
